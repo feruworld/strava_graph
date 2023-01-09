@@ -123,7 +123,10 @@ ax.plot(route_df['time_cum'], route_df['velocity_movingave_10'])
 for name, starttime, endtime, bpm in zip(song_names, song_starttimes, song_endtimes, song_bpms):
     ax.plot([endtime, endtime], [ymin, ymax], linewidth=0.5, linestyle='dashed', color='gray')
 
-    velocity_ave = route_df[(route_df['time_cum']>starttime) & (route_df['time_cum']<endtime)]['velocity'].mean()
+    route_bysong_df = route_df[(route_df['time_cum']>starttime) & (route_df['time_cum']<endtime)]
+    distance_bysong = route_bysong_df['distance_delta'].sum()
+    velocity_ave = distance_bysong / (endtime - starttime) * 3.6
+
     ax.text(starttime+5, ymin+1, "{}\nBPM: {}\nave: {:.2f}km/h".format(name, bpm, velocity_ave))
     ax.plot([starttime, endtime], [velocity_ave, velocity_ave], linewidth=2, color='orange')
 
