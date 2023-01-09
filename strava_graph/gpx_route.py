@@ -125,6 +125,7 @@ for name, starttime, endtime, bpm in zip(song_names, song_starttimes, song_endti
 
     velocity_ave = route_df[(route_df['time_cum']>starttime) & (route_df['time_cum']<endtime)]['velocity'].mean()
     ax.text(starttime+5, ymin+1, "{}\nBPM: {}\nave: {:.2f}km/h".format(name, bpm, velocity_ave))
+    ax.plot([starttime, endtime], [velocity_ave, velocity_ave], linewidth=2, color='orange')
 
 ax.set_xlabel('second')
 ax.set_ylabel('km/h')
